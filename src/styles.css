@@ -4,7 +4,7 @@ const bills = [
     chamber: 'Senate',
     status: 'Markup phase',
     tag: 'Climate',
-    summary: 'Extends federal incentives for clean power investment and grid upgrades.',
+    summary: 'Extends federal incentives for clean power investment, transmission, and manufacturing.',
     priority: 'High'
   },
   {
@@ -12,7 +12,7 @@ const bills = [
     chamber: 'House',
     status: 'Floor vote',
     tag: 'Health',
-    summary: 'Broadens access to preventative care and lowers premiums for rural communities.',
+    summary: 'Expands access to primary care, lowers premiums, and improves rural provider reimbursement.',
     priority: 'High'
   },
   {
@@ -20,15 +20,15 @@ const bills = [
     chamber: 'Committee',
     status: 'Reviewing amendments',
     tag: 'Infrastructure',
-    summary: 'Focuses on resilient transport, water systems, and disaster mitigation funding.',
-    priority: 'Medium'
+    summary: 'Targets transportation, water systems, flood protection, and public-facility resilience.',
+    priority: 'High'
   },
   {
     title: 'AI Governance and Accountability Framework',
     chamber: 'Senate',
     status: 'Hearing scheduled',
     tag: 'Technology',
-    summary: 'Establishes standards for transparency, safety testing, and federal oversight.',
+    summary: 'Creates standards for transparency, safety testing, funding, and federal oversight.',
     priority: 'High'
   },
   {
@@ -36,16 +36,32 @@ const bills = [
     chamber: 'House',
     status: 'Committee review',
     tag: 'Labor',
-    summary: 'Creates vocational training incentives tied to regional demand and apprenticeships.',
+    summary: 'Expands apprenticeship opportunities and ties training incentives to local labor demand.',
     priority: 'Medium'
   },
   {
-    title: 'Public Safety Data Integrity Bill',
+    title: 'Public Safety Data Integrity Act',
     chamber: 'Committee',
     status: 'Drafting',
     tag: 'Justice',
-    summary: 'Improves standards for public records, auditability, and interagency data sharing.',
-    priority: 'Low'
+    summary: 'Improves data auditing, agency accountability, and secure records interoperability.',
+    priority: 'Medium'
+  },
+  {
+    title: 'Defense Industrial Capacity Bill',
+    chamber: 'House',
+    status: 'Appropriations review',
+    tag: 'Defense',
+    summary: 'Focuses on munitions readiness, defense supply chains, and strategic procurement.',
+    priority: 'High'
+  },
+  {
+    title: 'Budget Reconciliation and Fiscal Review',
+    chamber: 'Senate',
+    status: 'Negotiation',
+    tag: 'Budget',
+    summary: 'Addresses spending priorities, revenue expectations, and long-term budget discipline.',
+    priority: 'High'
   }
 ];
 
@@ -54,7 +70,9 @@ const billList = document.querySelector('#bill-list');
 
 function renderBills(filter = 'all') {
   const visibleBills =
-    filter === 'all' ? bills : bills.filter((bill) => bill.chamber === filter || bill.tag === filter);
+    filter === 'all'
+      ? bills
+      : bills.filter((bill) => bill.chamber === filter || bill.tag === filter || bill.status === filter);
 
   billList.innerHTML = visibleBills
     .map(
