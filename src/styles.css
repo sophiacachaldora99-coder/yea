@@ -1,0 +1,86 @@
+const bills = [
+  {
+    title: 'Clean Energy Tax Credit Extension',
+    chamber: 'Senate',
+    status: 'Markup phase',
+    tag: 'Climate',
+    summary: 'Extends federal incentives for clean power investment and grid upgrades.',
+    priority: 'High'
+  },
+  {
+    title: 'Healthcare Access Expansion Act',
+    chamber: 'House',
+    status: 'Floor vote',
+    tag: 'Health',
+    summary: 'Broadens access to preventative care and lowers premiums for rural communities.',
+    priority: 'High'
+  },
+  {
+    title: 'National Infrastructure Resilience Plan',
+    chamber: 'Committee',
+    status: 'Reviewing amendments',
+    tag: 'Infrastructure',
+    summary: 'Focuses on resilient transport, water systems, and disaster mitigation funding.',
+    priority: 'Medium'
+  },
+  {
+    title: 'AI Governance and Accountability Framework',
+    chamber: 'Senate',
+    status: 'Hearing scheduled',
+    tag: 'Technology',
+    summary: 'Establishes standards for transparency, safety testing, and federal oversight.',
+    priority: 'High'
+  },
+  {
+    title: 'Workforce Development Compact',
+    chamber: 'House',
+    status: 'Committee review',
+    tag: 'Labor',
+    summary: 'Creates vocational training incentives tied to regional demand and apprenticeships.',
+    priority: 'Medium'
+  },
+  {
+    title: 'Public Safety Data Integrity Bill',
+    chamber: 'Committee',
+    status: 'Drafting',
+    tag: 'Justice',
+    summary: 'Improves standards for public records, auditability, and interagency data sharing.',
+    priority: 'Low'
+  }
+];
+
+const filters = document.querySelectorAll('.filter-btn');
+const billList = document.querySelector('#bill-list');
+
+function renderBills(filter = 'all') {
+  const visibleBills =
+    filter === 'all' ? bills : bills.filter((bill) => bill.chamber === filter || bill.tag === filter);
+
+  billList.innerHTML = visibleBills
+    .map(
+      (bill) => `
+        <article class="bill-card">
+          <div class="card-topline">
+            <span class="tag">${bill.tag}</span>
+            <span class="chip ${bill.priority.toLowerCase()}">${bill.priority}</span>
+          </div>
+          <h4>${bill.title}</h4>
+          <p>${bill.summary}</p>
+          <div class="card-meta">
+            <span>${bill.chamber}</span>
+            <span>${bill.status}</span>
+          </div>
+        </article>
+      `
+    )
+    .join('');
+}
+
+filters.forEach((button) => {
+  button.addEventListener('click', () => {
+    filters.forEach((btn) => btn.classList.toggle('active', btn === button));
+    renderBills(button.dataset.filter);
+  });
+});
+
+renderBills();
